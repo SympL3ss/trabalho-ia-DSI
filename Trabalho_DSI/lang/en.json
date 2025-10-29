@@ -1,0 +1,60 @@
+{
+    "common": {
+        "platform": "Test Platform",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "back": "Back",
+        "next": "Next",
+        "submit": "Submit",
+        "close": "Close"
+    },
+    "nav": {
+        "studentMode": "Student Mode",
+        "teacherMode": "Teacher Mode",
+        "materials": "Materials"
+    },
+    "test": {
+        "title": "Create New Test",
+        "testTitle": "Test Title",
+        "theme": "Theme for AI Question Generation",
+        "addQuestion": "Add Question",
+        "generateAI": "Generate with AI",
+        "saveTest": "Save Test",
+        "questionTypes": {
+            "multipleChoice": "Multiple Choice",
+            "trueFalse": "True/False",
+            "written": "Written Response"
+        }
+    },
+    "student": {
+        "name": "Your Name",
+        "selectTest": "Select a test",
+        "startTest": "Start Test",
+        "viewResults": "View Results",
+        "submitTest": "Submit Test",
+        "score": "Score",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "pending": "Pending"
+    },
+    "materials": {
+        "title": "Study Materials",
+        "newMaterial": "New Material",
+        "editMaterial": "Edit Material",
+        "content": "Content",
+        "addImage": "Add Image",
+        "addVideo": "Add Video",
+        "saveMaterial": "Save Material"
+    },
+    "pdf": {
+        "generating": "Generating PDF...",
+        "success": "PDF generated successfully!",
+        "error": "Error generating PDF",
+        "export": "Export to PDF"
+    }
+}

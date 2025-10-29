@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiais de Estudo (Aluno)</title>
+    
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pt',
+                includedLanguages: 'en,it,es,fr,pl', 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+    
+    <style>
+        :root { --cor-principal: #005a9c; --cor-sucesso: #28a745; --cor-perigo: #dc3545; --cor-aviso: #ffc107; --cor-fundo: #f4f7f6; --cor-borda: #ddd; }
+        
+        body { 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+            background-color: var(--cor-fundo); color: #333; line-height: 1.6; margin: 0; padding: 0; top: 0px !important; 
+        }
+        
+        .site-header { width: 100%; background-color: var(--cor-principal); color: #fff; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; }
+        .header-container nav { display: flex; align-items: center; gap: 15px; }
+        .logo-texto { font-size: 1.5rem; font-weight: 600; color: #fff; text-decoration: none; }
+        .btn-header { display: inline-block; padding: 10px 20px; font-size: 0.9rem; font-weight: 600; text-decoration: none; border-radius: 5px; background-color: #fff; color: var(--cor-principal); transition: background-color 0.2s ease, color 0.2s ease; }
+        .btn-header:hover { background-color: #f0f0f0; color: #004a80; }
+
+        .container { max-width: 900px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); overflow: hidden; }
+        
+        h1, h2, h3 { color: var(--cor-principal); margin-top: 0; }
+
+        /* Estilos de Acordeão Aninhado (copiado de cprova.html) */
+        .accordion-nested { background-color: #fdfdfd; border: 1px solid #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .accordion-header-nested { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 20px; background-color: #fdfdfd; }
+        .accordion-header-nested h3 { margin-bottom: 0; font-size: 1.25rem; }
+        .accordion-seta-nested { font-size: 1.2rem; color: var(--cor-principal); transition: transform 0.3s; }
+        .accordion-seta-nested.aberto { transform: rotate(180deg); }
+        .accordion-body-nested { 
+            display: none; 
+            padding: 20px; 
+            border-top: 1px solid #eee; 
+            background-color: #fff; 
+            line-height: 1.7;
+            word-wrap: break-word; /* Garante que o conteúdo não transborda */
+        }
+        /* Estilos para o conteúdo HTML dentro do material (Atualizado) */
+        .accordion-body-nested > *:first-child { margin-top: 0; }
+        .accordion-body-nested > *:last-child { margin-bottom: 0; }
+        .accordion-body-nested ul, .accordion-body-nested ol { padding-left: 25px; margin-top: 10px; margin-bottom: 10px; }
+        .accordion-body-nested li { margin-bottom: 8px; }
+        .accordion-body-nested p { margin: 10px 0; }
+        .accordion-body-nested blockquote {
+            border-left: 4px solid var(--cor-borda);
+            padding-left: 15px;
+            margin-left: 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* ESTILOS para imagens e vídeos responsivos (Atualizado) */
+        .accordion-body-nested img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+            margin: 10px auto; /* Centra imagens que estão num <p style="text-align: center;"> */
+        }
+        .accordion-body-nested iframe {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        /* Wrapper do vídeo YouTube */
+        .accordion-body-nested div[style*="position: relative"] {
+            max-width: 100%; /* Garante que não transborda */
+        }
+        /* Vídeo MP4 (Novo) */
+        .accordion-body-nested video {
+            width: 100%;
+            max-width: 100%; /* Garante que não transborda */
+            height: auto;
+            border-radius: 5px;
+        }
+
+
+        /* Google Translate */
+        .goog-te-gadget-simple { background-color: transparent !important; border: 1px solid #fff !important; border-radius: 5px !important; padding: 8px 5px !important; cursor: pointer; }
+        .goog-te-gadget-simple span { color: #fff !important; font-weight: 600; font-size: 0.9rem; }
+        .goog-te-gadget-icon { display: none !important; }
+        .goog-te-banner-frame { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <nav>
+                <div id="google_translate_element"></div>
+                <a href="fprova.html" class="btn-header">Fazer Prova</a>
+                <a href="cprova.html" class="btn-header">Modo Professor</a>
+            </nav>
+            <a href="#" class="logo-texto">Plataforma de Provas</a>
+        </div>
+    </header>
+
+    <div class="container" id="materiais-container">
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /**
+             * Carrega e exibe os materiais para o aluno.
+             */
+            function carregarMateriaisEstudante() {
+                const container = document.getElementById('materiais-container');
+                if (!container) return;
+
+                let banco = [];
+                try {
+                    banco = JSON.parse(localStorage.getItem('bancoDeMateriais')) || [];
+                    if (!Array.isArray(banco)) banco = [];
+                } catch (e) {
+                    container.innerHTML = '<h1>Materiais de Estudo</h1><p style="color: red;">Erro ao carregar materiais.</p>';
+                    return;
+                }
+
+                let html = '<h1>Materiais de Estudo</h1>';
+                if (banco.length === 0) {
+                    html += '<p>Nenhum material de estudo foi adicionado pelo professor.</p>';
+                } else {
+                    banco.forEach((material, index) => {
+                        if (!material || typeof material !== 'object' || !material.title || !material.content) return;
+
+                        const bodyId = `material-body-${index}`;
+                        const tituloLimpo = (material.title || 'S/ Título').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                        html += `
+                            <div class="accordion-nested">
+                                <div class="accordion-header-nested" data-target="${bodyId}">
+                                    <h3>${tituloLimpo}</h3>
+                                    <span class="accordion-seta-nested" id="seta-${bodyId}">▼</span>
+                                </div>
+                                <div class="accordion-body-nested" id="${bodyId}"></div>
+                            </div>
+                        `;
+                    });
+                }
+                
+                container.innerHTML = html;
+
+                // Agora que o HTML está no DOM, podemos inserir o conteúdo e adicionar listeners
+                banco.forEach((material, index) => {
+                     if (!material || typeof material !== 'object' || !material.title || !material.content) return;
+                     const bodyId = `material-body-${index}`;
+                     const bodyEl = document.getElementById(bodyId);
+                     if(bodyEl) {
+                         // Importante: Usar .innerHTML para renderizar o HTML do professor
+                         bodyEl.innerHTML = material.content; 
+                     }
+                });
+
+                // Adiciona os listeners para os acordeões
+                container.querySelectorAll('.accordion-header-nested').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const targetId = header.dataset.target;
+                        const body = document.getElementById(targetId);
+                        const seta = document.getElementById(`seta-${targetId}`);
+                        
+                        if (body && seta) {
+                            const isOpen = body.style.display === 'block';
+                            body.style.display = isOpen ? 'none' : 'block';
+                            seta.classList.toggle('aberto', !isOpen);
+                            seta.textContent = isOpen ? '▼' : '▲';
+                        }
+                    });
+                });
+            }
+
+            // Carrega os materiais quando a página é aberta
+            carregarMateriaisEstudante();
+        });
+    </script>
+</body>
+</html>

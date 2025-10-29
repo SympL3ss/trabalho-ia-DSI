@@ -1,0 +1,210 @@
+// Error Service implementation
+const ErrorService = (function() {
+    function ErrorService() {
+        this.errorHandlers = new Map();
+        this.isInitialized = false;
+    }
+
+    /**
+     * Initialize error handling service
+     */
+    initialize() {
+        if (this.isInitialized) return;
+
+        // Global error handler
+        window.onerror = (message, source, lineno, colno, error) => {
+            this.handleError('global', error || new Error(message));
+            return false;
+        };
+
+        // Unhandled promise rejection handler
+        window.onunhandledrejection = (event) => {
+            this.handleError('promise', event.reason);
+            event.preventDefault();
+        };
+
+        this.isInitialized = true;
+        console.log('Error service initialized');
+    }
+
+    /**
+     * Register error handler for specific error type
+     * @param {string} errorType - Type of error to handle
+     * @param {Function} handler - Error handler function
+     */
+    registerHandler(errorType, handler) {
+        if (typeof handler !== 'function') {
+            throw new Error('Handler must be a function');
+        }
+        this.errorHandlers.set(errorType, handler);
+    }
+
+    /**
+     * Handle error
+     * @param {string} type - Error type
+     * @param {Error} error - Error object
+     */
+    handleError(type, error) {
+        console.error(`[${type}] Error:`, error);
+
+        // Get specific handler or use default
+        const handler = this.errorHandlers.get(type) || this.defaultHandler;
+
+        try {
+            handler(error);
+        } catch (handlerError) {
+            console.error('Error in error handler:', handlerError);
+            this.defaultHandler(error);
+        }
+
+        // Log error details
+        this.logError(type, error);
+    }
+
+    /**
+     * Default error handler
+     * @param {Error} error - Error object
+     */
+    defaultHandler(error) {
+        const message = error.message || 'An unknown error occurred';
+        
+        // Create error toast notification
+        const toast = document.createElement('div');
+        toast.className = 'error-toast';
+        toast.innerHTML = `
+            <div class="error-toast-content">
+                <strong>Error</strong>
+                <p>${message}</p>
+                <button class="error-toast-close">&times;</button>
+            </div>
+        `;
+
+        // Style toast
+        Object.assign(toast.style, {
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            backgroundColor: '#dc3545',
+            color: 'white',
+            padding: '15px',
+            borderRadius: '5px',
+            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+            zIndex: '9999',
+            maxWidth: '300px'
+        });
+
+        // Add close button handler
+        const closeButton = toast.querySelector('.error-toast-close');
+        closeButton.onclick = () => toast.remove();
+
+        // Auto-remove after 5 seconds
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 5000);
+    }
+
+    /**
+     * Log error details
+     * @param {string} type - Error type
+     * @param {Error} error - Error object
+     */
+    logError(type, error) {
+        const errorLog = {
+            timestamp: new Date().toISOString(),
+            type: type,
+            message: error.message,
+            stack: error.stack,
+            userAgent: navigator.userAgent,
+            url: window.location.href
+        };
+
+        // Log to console in development
+        if (process.env.NODE_ENV === 'development') {
+            console.group('Error Details');
+            console.table(errorLog);
+            console.groupEnd();
+        }
+
+        // Here you could send error logs to a server or service like Sentry
+        this.sendErrorLog(errorLog);
+    }
+
+    /**
+     * Send error log to server
+     * @param {Object} errorLog - Error log details
+     */
+    async sendErrorLog(errorLog) {
+        // This is a placeholder - implement actual error logging service
+        try {
+            // Example: Send to logging endpoint
+            // await fetch('/api/log-error', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(errorLog)
+            // });
+            console.log('Error logged:', errorLog);
+        } catch (error) {
+            console.error('Failed to send error log:', error);
+        }
+    }
+
+    /**
+     * Create error boundary component
+     * @param {string} fallbackMessage - Message to show on error
+     * @returns {Object} Error boundary component
+     */
+    createErrorBoundary(fallbackMessage = 'Something went wrong') {
+        return {
+            template: `
+                <div class="error-boundary" style="display: none">
+                    <div class="error-boundary-content">
+                        <h3>Oops!</h3>
+                        <p>${fallbackMessage}</p>
+                        <button class="error-boundary-retry">Try Again</button>
+                    </div>
+                </div>
+            `,
+            
+            show(container, error) {
+                const boundary = container.querySelector('.error-boundary');
+                if (boundary) {
+                    boundary.style.display = 'flex';
+                    this.logError('boundary', error);
+                    
+                    // Add retry handler
+                    boundary.querySelector('.error-boundary-retry').onclick = () => {
+                        boundary.style.display = 'none';
+                        // Trigger component refresh/retry logic here
+                    };
+                }
+            }
+        };
+    }
+}
+
+// Create and export a singleton instance
+const errorService = new ErrorService();
+
+// Initialize error service and register handlers
+errorService.initialize();
+
+errorService.registerHandler('api', (error) => {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+    
+    const btnSubmitIA = document.getElementById('btn-submit-ia');
+    if (btnSubmitIA) {
+        btnSubmitIA.disabled = false;
+        btnSubmitIA.textContent = "Gerar Perguntas";
+    }
+
+    alert(`Erro API: ${error.message}`);
+});
+
+errorService.registerHandler('storage', (error) => {
+    alert(`Erro de armazenamento: ${error.message}. Tente limpar o cache.`);
+});
+
+// Make error service globally available
+window.errorService = errorService;
